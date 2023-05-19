@@ -1,0 +1,45 @@
+<%- include ('../../partials/header.ejs');%>
+<%- include ('../../partials/navbar.ejs');%>
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-primary" href="/admin/articles/new">Criar nova artigo</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+           <%  articles.forEach(article =>{ %>
+            <tr>
+                <th><%= article.id %></th>
+                <th><%= article.title %></th>
+                <th><%= article.slug %></th>
+                <th><%= article.category.title %></th>
+                <th><form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmarDelete(event, this)">
+                        <input type="hidden" name="id" value="<%= article.id %>">
+                        <button class="btn btn-danger">Deletar</button>
+                    </form>
+                </th>
+            </tr>
+           <% }); %>
+            
+        </tbody>
+    </table>
+</div>
+<%- include ('../../partials/footer.ejs');%>
+<script>
+    function confirmarDelete(event, form){
+        event.preventDefault();// ele impede que o formulario seja detido
+        var decision = confirm("Você quer deletar este artigo?");
+        if(decision){
+            form.submit();
+        }
+    }
+</script>
