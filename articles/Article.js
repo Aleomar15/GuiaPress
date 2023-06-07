@@ -13,6 +13,7 @@ const Article = connection.define('articles',{
         allowNull: false
     }
 });
+//Article.sync({force: false});
 Category.hasMany(Article);// uma categoria tem muitos artigos(1 para N)
 Article.belongsTo(Category);//significa que um artigo pertence a uma categoria(1 para 1)
 
