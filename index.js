@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
 const connection = require("./database/database");
 const categoriesController = require("./categories/CategoriesController");
@@ -12,6 +13,14 @@ const Category = require("./categories/Category");
 const User = require("./users/Users");
 //View engine
 app.set('view engine','ejs');
+
+//Sessions
+app.use(session({
+    secret:"lieralmentequalquercoisa",
+    cookie:{
+        maxAge: 3000000//tempo de expiração em milissegundos
+    }//será uma referencia para a sessão no servidor
+}))
 
 //Static
 app.use(express.static('public'));
@@ -28,6 +37,8 @@ app.use("/",categoriesController);//estou dizendo a minha aplicação que está 
 app.use("/",articlesController);
 app.use("/",usersController);
 
+
+//Rotas da Home Page
 app.get("/",(req,res)=>{
     Article.findAll({
         order:[['id','DESC']],
@@ -39,7 +50,7 @@ app.get("/",(req,res)=>{
     });
 });
 
-app.get("/:slug",(req,res)=> {
+app.get("/:slug",(req,res)=> {//rota para procurar o artigo e exibilo
     var slug =  req.params.slug;
     Article.findOne({
         where:{
@@ -57,7 +68,7 @@ app.get("/:slug",(req,res)=> {
         res.redirect("/");
     })
 })
-app.get("/category/:slug",(req,res)=>{
+app.get("/category/:slug",(req,res)=>{//rota para procuar o artigo pela categoria e exibilo
    var slug = req.params.slug;
     Category.findOne({
         where: {
