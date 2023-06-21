@@ -8,10 +8,12 @@ router.get("/admin/users", (req, res)=>{
     User.findAll().then(users =>{
         res.render("admin/users/index",{users: users});
     });
-})
+});
+
 router.get("/admin/users/create", (req, res)=>{
     res.render("admin/users/create");
 });
+
 router.post("/users/create", (req,res)=>{
     var email = req.body.email;
     var password = req.body.password;
@@ -36,6 +38,7 @@ router.post("/users/create", (req,res)=>{
 
     //res.json({email,password}) para ver se os dados estão retornando
 });
+
 router.get("/login",(req,res)=>{
     res.render("admin/users/login");
 });
@@ -53,7 +56,7 @@ router.post("/authenticate",(req, res)=>{
                     id: user.id,
                     email: user.email
                 }
-                res.json(req.session.user);
+                res.redirect("/admin/articles");
             }else{
                 res.redirect("/login");
             }
@@ -61,6 +64,11 @@ router.post("/authenticate",(req, res)=>{
             res.redirect("/login");
         }
     })
+});
+
+router.get("/logout", (req,res)=>{
+  req.session.user = undefined;
+  res.redirect("/"); 
 });
 
 module.exports = router;
