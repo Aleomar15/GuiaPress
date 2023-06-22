@@ -36,6 +36,9 @@ Como faz para executa-lo?
 ## ORM
 - Sequelize
 
+## View engine
+- EJS
+
 ## Extra
 - TinyMCE
 
