@@ -1,4 +1,4 @@
-# Guia_Perguntas
+# GuiaPress
 # Sobre o Projeto
   GuiaPress é um Projeto full stack web construida no curso da Udemy: Formação Node.js, na seção 7 , curso criado pelo [Guia do programador](https://www.udemy.com/course/formacao-nodejs/ "Link do Curso"). 
   
